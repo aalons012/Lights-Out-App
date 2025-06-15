@@ -1,3 +1,11 @@
-<resources>
-    <string name="app_name">Lights_Out</string>
+ <resources>
+    <string name="app_name">
+        Lights_Out
+    </string>
+    <string name="new_game">
+        New Game
+    </string>
+     <string name="congrats">
+         Congratulations!
+     </string>
 </resources>
