@@ -7,6 +7,8 @@ const val GRID_SIZE = 3     // Outputs the grid size for the game (3x3)
 class LightsOutGame {
     private val lightsGrid = Array(GRID_SIZE) { BooleanArray(GRID_SIZE) {true} }
 
+    
+
     fun newGame(){
         for (row in 0 until GRID_SIZE){
             for (col in 0 until GRID_SIZE){
@@ -43,4 +45,7 @@ class LightsOutGame {
             }
             return true
         }
+    fun turnLightsOff(){
+
+    }
 }

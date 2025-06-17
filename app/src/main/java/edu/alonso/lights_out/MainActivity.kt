@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 
+// Main Activity is the Main Method(Screen) of the app and handles the User Interface and the Logic
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var game: LightsOutGame
-    private lateinit var lightGridLayout: GridLayout
+    private lateinit var game: LightsOutGame            // This is the Model of the game
+    private lateinit var lightGridLayout: GridLayout    // This is the View of the game
     private var lightOnColor = 0
     private var lightOffColor = 0
 
@@ -31,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         game = LightsOutGame()
         startGame()
     }
-
+    // This method starts the game
     private fun startGame(){
-        game.newGame()
-        setButtonColors()
+        game.newGame()        // tells the logic to start a new game
+        setButtonColors()     // tells the view to update the colors of the buttons
     }
 
     private fun onLightButtonClick(view: View){
@@ -69,4 +70,6 @@ class MainActivity : AppCompatActivity() {
     fun onNewGameClick(view: View) {
         startGame()
     }
+
+
 }

@@ -8,4 +8,5 @@
      <string name="congrats">
          Congratulations!
      </string>
-</resources>
+     <string name="on_off_button">on/off_button</string>
+ </resources>
