@@ -1,12 +1,12 @@
- <resources>
+<resources>
     <string name="app_name">
         Lights_Out
     </string>
     <string name="new_game">
         New Game
     </string>
-     <string name="congrats">
+    <string name="congrats">
          Congratulations!
      </string>
-     <string name="on_off_button">on/off_button</string>
- </resources>
+    <string name="on_off_button">on/off_button</string>
+</resources>

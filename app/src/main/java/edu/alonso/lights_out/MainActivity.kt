@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 
+const val GAME_STATE = "gameState"
+
 // Main Activity is the Main Method(Screen) of the app and handles the User Interface and the Logic
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         lightGridLayout = findViewById(R.id.light_grid)
 
         for (gridButton in lightGridLayout.children){
@@ -30,8 +33,19 @@ class MainActivity : AppCompatActivity() {
         lightOffColor = ContextCompat.getColor(this, R.color.black)
 
         game = LightsOutGame()
-        startGame()
+        if (savedInstanceState == null) {
+            startGame()
+        } else {
+            game.state = savedInstanceState.getString(GAME_STATE)!!
+            setButtonColors()
+        }
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(GAME_STATE, game.state)
+    }
+
+
     // This method starts the game
     private fun startGame(){
         game.newGame()        // tells the logic to start a new game
