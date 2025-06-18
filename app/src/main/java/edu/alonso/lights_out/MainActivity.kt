@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import android.content.Intent
 
 const val GAME_STATE = "gameState"
 
@@ -85,5 +86,15 @@ class MainActivity : AppCompatActivity() {
         startGame()
     }
 
+    fun onHelpClick(view: View) {
+        // Start the HelpActivity
+        startActivity(Intent(this, HelpActivity::class.java))
+        startActivity(intent)
+    }
 
+    fun onChangeColorClick(view: View) {
+        // Start the ColorActivity
+        startActivity(Intent(this, ColorActivity::class.java))
+        startActivity(intent)
+    }
 }

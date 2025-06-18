@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lights_Out."
         tools:targetApi="31">
+        <!-- Just shows the Color activity showing in AndroidManifest.xml -->
         <activity
             android:name=".ColorActivity"
             android:exported="false" />
