@@ -1,5 +1,6 @@
 package edu.alonso.lights_out
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
 
 const val GAME_STATE = "gameState"
 
@@ -16,13 +18,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var game: LightsOutGame            // This is the Model of the game
     private lateinit var lightGridLayout: GridLayout    // This is the View of the game
-    private var lightOnColor = 0
-    private var lightOffColor = 0
+    private var lightOnColorId = 0
+    private var lightOnColor = 0                        // This is the Color of the Lights ON
+    private var lightOffColor = 0                       // This is the Color of the Lights OFF
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        lightOnColorId = R.color.yellow
 
         lightGridLayout = findViewById(R.id.light_grid)
 
@@ -35,15 +39,19 @@ class MainActivity : AppCompatActivity() {
 
         game = LightsOutGame()
         if (savedInstanceState == null) {
+
             startGame()
         } else {
             game.state = savedInstanceState.getString(GAME_STATE)!!
+            lightOnColorId = savedInstanceState.getInt(EXTRA_COLOR)
+            lightOnColor = ContextCompat.getColor(this, lightOnColorId)
             setButtonColors()
         }
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(GAME_STATE, game.state)
+        outState.putInt(EXTRA_COLOR, lightOnColorId)
     }
 
 
@@ -93,8 +101,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onChangeColorClick(view: View) {
-        // Start the ColorActivity
-        startActivity(Intent(this, ColorActivity::class.java))
-        startActivity(intent)
+        // Send the current ID to ColorActivity
+        val intent = Intent(this, ColorActivity::class.java)
+        intent.putExtra(EXTRA_COLOR, lightOnColorId)
+        colorResultLauncher.launch(intent)
+    }
+
+    private val colorResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Create the "on" button color based on the chosen color ID from ColorActivity
+            lightOnColorId = result.data!!.getIntExtra(EXTRA_COLOR, R.color.yellow)
+            lightOnColor = ContextCompat.getColor(this, lightOnColorId)
+            setButtonColors()
+        }
     }
 }
